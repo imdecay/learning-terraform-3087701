@@ -70,18 +70,13 @@ module "alb" {
   }
 }
   
-  listeners = {
-    ex-http-https-redirect = {
-      port     = 80
-      protocol = "HTTP"
-      redirect = {
-        port        = "443"
-        protocol    = "HTTPS"
-        status_code = "HTTP_301"
-      }
+  http_tcp_listeners = [
+    {
+      port               = 80
+      protocol           = "HTTP"
+      target_group_index = 0
     }
-  }
-
+  ]
 
 module "blog_sg" {
   source  = "terraform-aws-modules/security-group/aws"
